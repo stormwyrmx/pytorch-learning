@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="eae94bbc-73c7-4050-adb9-884d643f9aa9" name="chaosuan">
+        <fileTransfer rootFolder="/project/fangyan" accessType="SFTP" host="swarm.whu.edu.cn" port="22" sshConfigId="811ff215-80e6-4759-99b6-11ed0dcf2243" sshConfig="fangyan@swarm.whu.edu.cn:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
