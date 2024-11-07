@@ -7,6 +7,7 @@ print(type(x))
 print(x.shape)  # 一维，长度为22
 print(x.numel())  # number of elements
 print(x.reshape(3, 2, 4))  # reshape成3个2*4的矩阵（2*4的矩阵是2个4个元素的向量）
+print(x.size())
 
 print(torch.zeros(2, 3, 4))
 print(torch.zeros((2, 3, 4)))
@@ -23,7 +24,7 @@ print(a*b)
 print(a/b)
 print(a**b)
 print(torch.exp(a))
-print(torch.cat((a,b),dim=0))  # 可以理解为，dim 的维度是从最外层“[”开始算的 ，如果是三维，dim=2才是将列进行合并。
+print(torch.cat((a,b),dim=0))  # concatenate 可以理解为，dim 的维度是从最外层“[”开始算的 ，如果是三维，dim=2才是将列进行合并。
 print(torch.cat((a,b),dim=1))  # 0 和 1 这种表示法与 .shape的结果是对应的，0代表沿着第0个维度，1代表沿着第1个维度
 print(a==b)  # 按照逻辑运算符的规则，返回一个布尔张量
 print(a.sum())  # 对张量中的所有元素进行求和，会产生一个单元素张量
@@ -46,6 +47,9 @@ print(a)
 
 print("================saving memory=================")
 print(id(a))
+c=a
+print(id(c))
+
 a = a + b
 z=torch.zeros_like(a)
 z[:]=a+b
