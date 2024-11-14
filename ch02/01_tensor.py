@@ -6,6 +6,7 @@ x = torch.arange(24)  # 一维张量，称之为向量
 print(type(x))
 print(x.shape)  # 一维，长度为22
 print(x.numel())  # number of elements
+print(x.view(2, 3, 4))  # view是reshape的别名，reshape成2*3*4的矩阵
 print(x.reshape(3, 2, 4))  # reshape成3个2*4的矩阵（2*4的矩阵是2个4个元素的向量）
 print(x.size())
 
@@ -62,6 +63,7 @@ a+=b
 print(id(a))
 
 print("================conversion with numpy=================")
+# tensor有数学上的概念，numpy只有计算机的概念
 a_numpy = a.numpy()
 print(type(a_numpy))
 print(a_numpy)
