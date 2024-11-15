@@ -26,6 +26,12 @@ inputs.fillna(inputs.mean(numeric_only=True), inplace=True)
 print(inputs)
 
 inputs = pd.get_dummies(inputs, dummy_na=True,dtype=int)
+# one-hot encoding
+#  It creates new binary columns (0s and 1s) for each category in the original variable.
+#  Each category in the original column is represented as a separate column,
+#  where a value of 1 indicates the presence of that category, and 0 indicates its absence.
+# convert categorical variables into dummy/indicator variables.
+# It does not convert numerical values into dummy variables
 print(inputs)  # col的名字再加上了_后面的值，1表示有，0表示没有
 
 # print(torch.tensor(inputs.to_numpy()))
