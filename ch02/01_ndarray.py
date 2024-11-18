@@ -4,16 +4,16 @@ import torch
 print("================tensor=================")
 x = torch.arange(24)  # 一维张量，称之为向量
 print(type(x))
-print(x.shape)  # 一维，长度为22
+print(x.shape)  # 等价于print(x.size()) 一维，长度为22
 print(x.numel())  # number of elements
 print(x.view(2, 3, 4))  # view是reshape的别名，reshape成2*3*4的矩阵
 print(x.reshape(3, 2, 4))  # reshape成3个2*4的矩阵（2*4的矩阵是2个4个元素的向量）
-print(x.size())
 
 print(torch.zeros(2, 3, 4))
 print(torch.zeros((2, 3, 4)))
 print(torch.ones(2, 3, 4))
 print(torch.tensor([[[1, 2, 3, 4], [3, 4, 2, 1], [4, 5, 6, 7]]]).shape)  # Channel 1,Width 3,Height 4。1层3行4列的矩阵
+print(torch.randn(3, 4))  # 生成一个2*3*4的矩阵，每个元素都是从标准正态分布中随机采样的
 
 # 对于任意具有相同形状的张量， 常见的标准算术运算符（+、-、*、/和**）都可以被升级为按元素运算
 print("================element-wise compute=================")
@@ -51,11 +51,12 @@ print(id(a))
 c=a
 print(id(c))
 
-a = a + b
 z=torch.zeros_like(a)
+print(id(z))
 z[:]=a+b
 print(z)
 print(id(z))
+
 print(id(a))
 a[:] = a + b  # 这里的[:]是指定a的所有元素，如果不加[:]，a的引用会指向新的对象，而不是原来的对象
 print(id(a))

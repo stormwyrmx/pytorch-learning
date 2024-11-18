@@ -38,6 +38,7 @@ print(inputs)  # col的名字再加上了_后面的值，1表示有，0表示没
 x,y=torch.tensor(inputs.values),torch.tensor(outputs.values)
 print(x,y)  # python默认使用float64，深度学习一般用float32
 
+print("------------练习------------")
 # 删除缺失值最多的列
 count_max=0
 label=""
