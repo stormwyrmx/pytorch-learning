@@ -6,7 +6,7 @@
       <paths name="chaosuan">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/project/code/OpenGait" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
