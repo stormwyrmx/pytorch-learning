@@ -79,5 +79,3 @@ def test_MyDataset():
     # 仿造的数据集和真实的数据集进行训练
     train_dataset = ants_dataset + bees_dataset
 
-def test_MyDatasetSeparate():
-

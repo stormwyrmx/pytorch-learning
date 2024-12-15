@@ -1,7 +1,17 @@
+import torch
 from torch.utils.data import Dataset, DataLoader
 from PIL import Image
 import os
 from torchvision import transforms
+
+
+# # 创建一个工具类
+# tool = transforms.ToTensor()
+# # 利用这个类将图片转换为张量
+# tensor = tool(Image.open("dataset/train/ants/5650366_e22b7e1065.jpg"))
+# print(tensor)
+# # print(torch.tensor(Image.open("dataset/train/ants/5650366_e22b7e1065.jpg")))
+
 
 class MyData(Dataset):
 
@@ -30,7 +40,7 @@ class MyData(Dataset):
         if self.transform:
             img = transform(img)
 
-
+        # 会返回一个元组，元组中包含了图片和标签
         return img, label
 
     def __len__(self):
@@ -39,13 +49,14 @@ class MyData(Dataset):
 
 
 transform = transforms.Compose([transforms.Resize(400), transforms.ToTensor()])
-root_dir = "dataset/train"
+root_dir = "data/train"
 image_ants = "ants_image"
 label_ants = "ants_label"
 ants_dataset = MyData(root_dir, image_ants, label_ants, transform=transform)
 image_bees = "bees_image"
 label_bees = "bees_label"
 bees_dataset = MyData(root_dir, image_bees, label_bees, transform=transform)
+
 
 
 

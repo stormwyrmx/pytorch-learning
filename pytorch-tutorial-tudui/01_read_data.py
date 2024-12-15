@@ -8,6 +8,14 @@ from torchvision.utils import make_grid
 
 writer = SummaryWriter("logs")
 
+# Dataset：提供一种方式去获取数据及其label
+# 包含了：如何获取每一个数据及其label，告诉我们总共有多少的数据
+# DataLoader：为后面的网络提供不同的数据形式
+#
+
+# print(dir(Dataset))
+# print(help(Dataset))
+
 class MyData(Dataset):
 
     def __init__(self, root_dir, image_dir, label_dir, transform):
@@ -23,6 +31,7 @@ class MyData(Dataset):
         self.image_list.sort()
         self.label_list.sort()
 
+    # 使用__getitem__方法可以通过索引访问数据集中的元素
     def __getitem__(self, idx):
         img_name = self.image_list[idx]
         label_name = self.label_list[idx]
@@ -36,6 +45,7 @@ class MyData(Dataset):
         # img = np.array(img)
         img = self.transform(img)
         sample = {'img': img, 'label': label}
+        # 返回一个字典，字典中包含了图片和标签(哪个脑残想到返回字典的)
         return sample
 
     def __len__(self):
@@ -44,7 +54,7 @@ class MyData(Dataset):
 
 if __name__ == '__main__':
     transform = transforms.Compose([transforms.Resize((256, 256)), transforms.ToTensor()])
-    root_dir = "dataset/train"
+    root_dir = "data/train"
     image_ants = "ants_image"
     label_ants = "ants_label"
     ants_dataset = MyData(root_dir, image_ants, label_ants, transform)
@@ -56,15 +66,18 @@ if __name__ == '__main__':
     # transforms = transforms.Compose([transforms.Resize(256, 256)])
     dataloader = DataLoader(train_dataset, batch_size=1, num_workers=2)
 
-    writer.add_image('error', train_dataset[119]['img'])
-    writer.close()
-    # for i, j in enumerate(dataloader):
-    #     # imgs, labels = j
-    #     print(type(j))
-    #     print(i, j['img'].shape)
-    #     # writer.add_image("train_data_b2", make_grid(j['img']), i)
-    #
+    # writer.add_image('error', train_dataset[119]['img'])
     # writer.close()
+    for i, data in enumerate(dataloader):
+        # 从data字典中取出数据，imgs是第一个item的key，labels是第二个item的key
+        imgs, labels = data
+        print(type(data))
+        # print(i, data['img'].shape)
+        print(i,imgs,labels)
+        writer.add_image("train_data_b2", data[imgs], i, dataformats='NCHW')
+        # writer.add_image("train_data_b2", make_grid(data['img']), i)
+
+    writer.close()
 
 
 
