@@ -36,6 +36,8 @@ def softmax(x):
         return y.T 
 
     x = x - np.max(x) # 溢出对策，减去x数组中最大量 np.max()≠np.maximum()
+    # np.maximum() performs element-wise comparison between two arrays and
+    # returns a new array containing the maximum values from each pair of elements.
     return np.exp(x) / np.sum(np.exp(x))
 
 # the loss function measures the difference between the predicted output of a model and the actual target values

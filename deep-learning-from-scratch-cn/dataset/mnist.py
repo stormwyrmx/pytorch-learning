@@ -102,6 +102,8 @@ def load_mnist(normalize=True, flatten=True, one_hot_label=False):
     -------
     (训练图像, 训练标签), (测试图像, 测试标签)
     """
+
+    # 第一次调用的时候会下载数据，将它保存到mnist.pkl中。之后再调用的时候就直接读取mnist.pkl
     if not os.path.exists(save_file):
         init_mnist()
         
