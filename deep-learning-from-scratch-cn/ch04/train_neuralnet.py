@@ -20,15 +20,18 @@ train_loss_list = []
 train_acc_list = []
 test_acc_list = []
 
-iter_per_epoch = max(train_size / batch_size, 1)
-
+iter_per_epoch = max(train_size / batch_size, 1)  # 60000/100=600
+"""
+若batch_size为100，则每个epoch（600次）都会更新600次参数。
+若batch_size为60000，则每个epoch（1次）只会更新1次参数。
+"""
 for i in range(iters_num):
     batch_mask = np.random.choice(train_size, batch_size)
-    x_batch = x_train[batch_mask]
-    t_batch = t_train[batch_mask]
+    x_batch = x_train[batch_mask]  # 100*784
+    t_batch = t_train[batch_mask]  # 100*10
     
     # 计算梯度
-    #grad = network.numerical_gradient(x_batch, t_batch)
+    # grad = network.numerical_gradient(x_batch, t_batch)
     grad = network.gradient(x_batch, t_batch)
     
     # 更新参数
