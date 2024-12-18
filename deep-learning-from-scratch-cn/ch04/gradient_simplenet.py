@@ -12,13 +12,13 @@ class SimpleNet:
         self.W = np.random.randn(2,3)
 
     def predict(self, x):
-        return np.dot(x, self.W)
+        a=np.dot(x, self.W)
+        y=softmax(a)
+        return y
 
     def loss(self, x, t):
-        z = self.predict(x)
-        y = softmax(z)
+        y = self.predict(x) # 这里用到了self.W
         loss = cross_entropy_error(y, t)
-
         return loss
 
 x = np.array([0.6, 0.9])
@@ -27,6 +27,6 @@ t = np.array([0, 0, 1])
 net = SimpleNet()
 # w是一个参数，net.loss(x,t)是返回值。其中，net.loss中用的是self.init中的W
 f = lambda w: net.loss(x, t)
-dW = numerical_gradient(f, net.W)
+dW = numerical_gradient(f, net.W) # 这个net.W传递的是引用，引用了SimpleNet.W，所以在numerical_gradient中修改了net.W的值
 
 print(dW)

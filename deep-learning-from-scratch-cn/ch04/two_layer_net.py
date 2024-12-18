@@ -45,6 +45,7 @@ class TwoLayerNet:
         loss_W = lambda W: self.loss(x, t)
         
         grads = {}
+        # 损失函数要求很多遍，每个W1里的元素都要。1次求的batch_size为100，也就是y和t都有100行
         grads['W1'] = numerical_gradient(loss_W, self.params['W1'])
         grads['b1'] = numerical_gradient(loss_W, self.params['b1'])
         grads['W2'] = numerical_gradient(loss_W, self.params['W2'])

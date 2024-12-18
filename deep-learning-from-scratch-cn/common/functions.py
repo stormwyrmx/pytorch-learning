@@ -43,6 +43,7 @@ def softmax(x):
 # the loss function measures the difference between the predicted output of a model and the actual target values
 # The goal of training a machine learning model is to minimize this loss function
 # 均方误差(Mean Squared Error)
+# 下列函数只适用于t是one-hot-vector，且只有1个数据的情况
 def mean_squared_error(y, t):
     return 0.5 * np.sum((y-t)**2)
 
@@ -57,7 +58,7 @@ def cross_entropy_error(y, t):
         t = t.argmax(axis=1)
              
     batch_size = y.shape[0]
-    # sum中的参数是一个数组，表示对应元素相乘
+    # sum中的参数是一个数组，表示对应元素相加
     return -np.sum(np.log(y[np.arange(batch_size), t] + 1e-7)) / batch_size
 
 

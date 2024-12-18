@@ -30,6 +30,7 @@ x, x_history = gradient_descent(function_2, init_x, lr=lr, step_num=step_num)
 
 plt.plot( [-5, 5], [0,0], '--b')
 plt.plot( [0,0], [-5, 5], '--b')
+# x_history[:,0]是x_history的第0列也就是所有的x，x_history[:,1]是x_history的第1列也就是所有的y
 plt.plot(x_history[:,0], x_history[:,1], 'o')
 
 plt.xlim(-3.5, 3.5)

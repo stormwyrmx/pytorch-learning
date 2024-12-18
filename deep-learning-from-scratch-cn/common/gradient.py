@@ -37,8 +37,9 @@ def numerical_gradient(f, x):
     
     it = np.nditer(x, flags=['multi_index'], op_flags=['readwrite'])
     while not it.finished:
+        # 在里面修改x的值，相当于修改了传进来的x的内部的值，与之对应的W会被修改
         idx = it.multi_index
-        tmp_val = x[idx]
+        tmp_val = x[idx] # 第一个idx是(0,0)
         x[idx] = float(tmp_val) + h
         # w是self里固定的，这里传的x没有用
         fxh1 = f(x) # f(x+h)
