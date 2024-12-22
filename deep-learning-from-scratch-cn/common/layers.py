@@ -6,16 +6,20 @@ from common.util import im2col, col2im
 
 class Relu:
     def __init__(self):
+        # 由True和False组成的数组
         self.mask = None
 
     def forward(self, x):
         self.mask = (x <= 0)
         out = x.copy()
+        # 这是布尔索引，使用布尔数组来选择满足条件的元素
+        # 把True的地方变成0
         out[self.mask] = 0
 
         return out
 
     def backward(self, dout):
+        # 把True的地方变成0
         dout[self.mask] = 0
         dx = dout
 
@@ -32,6 +36,7 @@ class Sigmoid:
         return out
 
     def backward(self, dout):
+        # 具体的反向传播求出来的导，是x值下的导数。因此一定和输入的x的值有关
         dx = dout * (1.0 - self.out) * self.out
 
         return dx
