@@ -1,6 +1,7 @@
 # coding: utf-8
 import numpy as np
 
+count=0
 
 def identity_function(x):
     return x
@@ -59,6 +60,10 @@ def cross_entropy_error(y, t):
              
     batch_size = y.shape[0]
     # sum中的参数是一个数组，表示对应元素相加
+    # global count
+    # count+=1
+    # if count%10000==0:
+    #     print(count)
     return -np.sum(np.log(y[np.arange(batch_size), t] + 1e-7)) / batch_size
 
 

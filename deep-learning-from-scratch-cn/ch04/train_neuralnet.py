@@ -12,7 +12,7 @@ from two_layer_net import TwoLayerNet
 network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
 
 iters_num = 10000  # 适当设定循环的次数
-train_size = x_train.shape[0]
+train_size = x_train.shape[0]  # 60000
 batch_size = 100
 learning_rate = 0.1
 
@@ -32,7 +32,7 @@ for i in range(iters_num):
     
     # 计算梯度
     # grad = network.numerical_gradient(x_batch, t_batch)
-    grad = network.gradient(x_batch, t_batch)
+    grad = network.gradient(x_batch, t_batch)  # x_batch和t_batch是损失函数的参数
     
     # 更新参数
     for key in ('W1', 'b1', 'W2', 'b2'):
