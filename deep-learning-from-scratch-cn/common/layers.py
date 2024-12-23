@@ -3,6 +3,7 @@ import numpy as np
 from common.functions import *
 from common.util import im2col, col2im
 
+# Q:每个层都要考虑batch_size吗？
 
 class Relu:
     def __init__(self):
@@ -65,6 +66,7 @@ class Affine:
 
     def backward(self, dout):
         dx = np.dot(dout, self.W.T)
+        # todo:两个一维数组dot，为什么得到矩阵
         self.dW = np.dot(self.x.T, dout)
         self.db = np.sum(dout, axis=0)
         
@@ -88,9 +90,11 @@ class SoftmaxWithLoss:
     def backward(self, dout=1):
         batch_size = self.t.shape[0]
         if self.t.size == self.y.size: # 监督数据是one-hot-vector的情况
+            # todo:这里除以batch_size得到个啥
             dx = (self.y - self.t) / batch_size
         else:
             dx = self.y.copy()
+            # 将y的t位置的值减1，相当于把t变成了one-hot-vector
             dx[np.arange(batch_size), self.t] -= 1
             dx = dx / batch_size
         
