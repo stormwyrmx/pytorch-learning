@@ -43,10 +43,13 @@ def softmax(x):
 
 # the loss function measures the difference between the predicted output of a model and the actual target values
 # The goal of training a machine learning model is to minimize this loss function
-# 均方误差(Mean Squared Error)
+# 均方误差(Mean Squared Error) 预测值与真实值之间差异的平方的平均值 1/n * Σ(y - t)^2
 # 下列函数只适用于t是one-hot-vector，且只有1个数据的情况
 def mean_squared_error(y, t):
     return 0.5 * np.sum((y-t)**2)
+"""
+在实际应用中，尤其是训练神经网络时，这个平均因子n有时被省略或在其他地方处理（例如在批量处理时已经通过批量大小进行了归一化）。
+因此，定义损失函数为 0.5 倍的平方误差和是一种常见的做法，主要是为了简化后续的梯度计算和优化过程。"""
 
 # 交叉熵误差
 def cross_entropy_error(y, t):

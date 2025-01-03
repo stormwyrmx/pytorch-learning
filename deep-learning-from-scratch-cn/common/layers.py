@@ -57,6 +57,7 @@ class Affine:
     def forward(self, x):
         # 对应张量
         self.original_x_shape = x.shape
+        # todo 这里除以batch_size得到个啥，这里可能可以找到答案
         x = x.reshape(x.shape[0], -1)
         self.x = x
 
@@ -66,7 +67,9 @@ class Affine:
 
     def backward(self, dout):
         dx = np.dot(dout, self.W.T)
-        # todo:两个一维数组dot，为什么得到矩阵
+        # 两个一维数组dot，为什么得到矩阵=>这边只考虑了多维度的x的情况，也就是batch_size一定会大于1的情况
+        # 1D 数组没有明确的行向量或列向量的区分，转置不会改变其形状。
+        # 使用 reshape 方法将 1D 向量转换为 2D 矩阵，以明确其方向（行向量或列向量）
         self.dW = np.dot(self.x.T, dout)
         self.db = np.sum(dout, axis=0)
         
