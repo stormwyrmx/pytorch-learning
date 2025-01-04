@@ -57,7 +57,6 @@ class Affine:
     def forward(self, x):
         # 对应张量
         self.original_x_shape = x.shape
-        # todo 这里除以batch_size得到个啥，这里可能可以找到答案
         x = x.reshape(x.shape[0], -1)
         self.x = x
 
@@ -94,6 +93,9 @@ class SoftmaxWithLoss:
         batch_size = self.t.shape[0]
         if self.t.size == self.y.size: # 监督数据是one-hot-vector的情况
             # todo:这里除以batch_size得到个啥
+            # 最终我们要得到的是dW和db，最原始的dout是不需要的。所以这里除以了batch_size后dout会变小。
+            # 但是因为dW和db是矩阵相乘，batch_size变大后，dW和db会变大（X.T矩阵乘dout得到dW），
+            # 所以这里除以batch_size是为了保持dW和db的大小不变
             dx = (self.y - self.t) / batch_size
         else:
             dx = self.y.copy()

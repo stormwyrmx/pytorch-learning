@@ -10,7 +10,7 @@ from two_layer_net import TwoLayerNet
 
 network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
 
-x_batch = x_train[:3]
+x_batch = x_train[:3]  # 逗号表示分割维度，前面是行，后面是列（这里没有逗号，所以:3表示前2行）
 t_batch = t_train[:3]
 
 grad_numerical = network.numerical_gradient(x_batch, t_batch)

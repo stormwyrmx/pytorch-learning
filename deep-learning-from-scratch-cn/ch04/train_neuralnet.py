@@ -26,7 +26,7 @@ iter_per_epoch = max(train_size / batch_size, 1)  # 60000/100=600
 若batch_size为60000，则每个epoch（1次）只会更新1次参数。
 """
 for i in range(iters_num):
-    batch_mask = np.random.choice(train_size, batch_size)
+    batch_mask = np.random.choice(train_size, batch_size)  # 从 0 到 train_size-1 的范围内随机选择 batch_size 个索引，允许重复
     x_batch = x_train[batch_mask]  # 100*784
     t_batch = t_train[batch_mask]  # 100*10
     

@@ -20,8 +20,9 @@ train_loss_list = []
 train_acc_list = []
 test_acc_list = []
 
-iter_per_epoch = max(train_size / batch_size, 1)
+iter_per_epoch = max(train_size / batch_size, 1)  # 600
 
+# 因为一轮只会更新一次参数，所以batch_size是小是大对参数有利要调试
 for i in range(iters_num):
     batch_mask = np.random.choice(train_size, batch_size)
     x_batch = x_train[batch_mask]

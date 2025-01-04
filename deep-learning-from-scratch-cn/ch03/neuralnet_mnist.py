@@ -11,7 +11,7 @@ from dataset.mnist import load_mnist
 def get_data():
     (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, flatten=True, one_hot_label=False)
     # x_train: 60000*784, t_train: 60000*1, x_test: 10000*784, t_test: 10000*1
-    # normalize=True表示将输入数据正规化为0.0~1.0的值，flatten=True表示展开输入图像，one_hot_label=False表示标签为1维数组
+    # normalize=True表示将输入数据正规化为0.0~1.0的值，flatten=True表示展开输入图像，one_hot_label=False表示标签为1维数组(这个主要限定t)
     # 预处理是对神经网络的输入数据进行某种变换，使其变为适合输入到神经网络中的形式。这里的预处理是将图像数据转换为0.0~1.0的实数，即正规化
     return x_test, t_test
 

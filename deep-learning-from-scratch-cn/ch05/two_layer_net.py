@@ -57,11 +57,12 @@ class TwoLayerNet:
         return grads
         
     def gradient(self, x, t):
-        # forward
+        # forward 计算损失函数
+        # 把self中的layers、lastLayer中的很多参数都计算出来。先forward然后才能backward
         self.loss(x, t)
 
         # backward
-        dout = 1
+        dout = 1  # 损失函数的导数是1（因为损失函数就是L最终结果了）
         dout = self.lastLayer.backward(dout)
         
         layers = list(self.layers.values())
