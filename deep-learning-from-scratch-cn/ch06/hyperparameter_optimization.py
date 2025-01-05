@@ -41,7 +41,7 @@ results_val = {}
 results_train = {}
 for _ in range(optimization_trial):
     # 指定搜索的超参数的范围===============
-    weight_decay = 10 ** np.random.uniform(-8, -4)
+    weight_decay = 10 ** np.random.uniform(-8, -4)  # 均匀分布
     lr = 10 ** np.random.uniform(-6, -2)
     # ================================================
 

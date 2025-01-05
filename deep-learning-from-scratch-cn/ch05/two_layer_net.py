@@ -13,8 +13,10 @@ class TwoLayerNet:
         # 初始化权重
         self.params = {}
         self.params['W1'] = weight_init_std * np.random.randn(input_size, hidden_size)
+        # self.params['W1'] = np.ones((input_size, hidden_size))
         self.params['b1'] = np.zeros(hidden_size)
-        self.params['W2'] = weight_init_std * np.random.randn(hidden_size, output_size) 
+        self.params['W2'] = weight_init_std * np.random.randn(hidden_size, output_size)
+        # self.params['W2'] = np.ones((hidden_size, output_size))
         self.params['b2'] = np.zeros(output_size)
 
         # 生成层
