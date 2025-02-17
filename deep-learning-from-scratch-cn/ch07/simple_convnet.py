@@ -23,7 +23,8 @@ class SimpleConvNet:
         指定'relu'或'he'的情况下设定“He的初始值”
         指定'sigmoid'或'xavier'的情况下设定“Xavier的初始值”
     """
-    def __init__(self, input_dim=(1, 28, 28), 
+    def __init__(self, input_dim=(1, 28, 28),
+                 # filter_size表示卷积核的大小。这里是5x5的卷积核
                  conv_param={'filter_num':30, 'filter_size':5, 'pad':0, 'stride':1},
                  hidden_size=100, output_size=10, weight_init_std=0.01):
         filter_num = conv_param['filter_num']
@@ -32,6 +33,8 @@ class SimpleConvNet:
         filter_stride = conv_param['stride']
         input_size = input_dim[1]
         conv_output_size = (input_size - filter_size + 2*filter_pad) / filter_stride + 1
+        # 假设卷积层后面跟了一个池化层，并且这里的池化操作是将每个空间维度缩小一半（2×2最大池化）
+        # filter_num 个卷积核产生 filter_num 个特征图，因此池化层输出总神经元数为：
         pool_output_size = int(filter_num * (conv_output_size/2) * (conv_output_size/2))
 
         # 初始化权重

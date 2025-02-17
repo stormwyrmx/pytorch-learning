@@ -7,6 +7,7 @@ def identity_function(x):
     return x
 
 
+# 阶跃函数
 def step_function(x):
     return np.array(x > 0, dtype=np.int32)
 

@@ -154,6 +154,7 @@ class MultiLayerNet:
         # 设定
         grads = {}
         for idx in range(1, self.hidden_layer_num+2):
+            # 加上权重衰减，L2范数，后面优化器更新的时候就减小的更厉害
             grads['W' + str(idx)] = self.layers['Affine' + str(idx)].dW + self.weight_decay_lambda * self.layers['Affine' + str(idx)].W
             grads['b' + str(idx)] = self.layers['Affine' + str(idx)].db
 

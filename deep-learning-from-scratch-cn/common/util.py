@@ -55,7 +55,9 @@ def im2col(input_data, filter_h, filter_w, stride=1, pad=0):
     out_h = (H + 2*pad - filter_h)//stride + 1
     out_w = (W + 2*pad - filter_w)//stride + 1
 
+    # 在图像外侧进行 0 填充（constant 表示用常数值填充，默认值是0）。
     img = np.pad(input_data, [(0,0), (0,0), (pad, pad), (pad, pad)], 'constant')
+    # 初始化一个 6D 数组用于存储提取结果
     col = np.zeros((N, C, filter_h, filter_w, out_h, out_w))
 
     for y in range(filter_h):
@@ -63,7 +65,8 @@ def im2col(input_data, filter_h, filter_w, stride=1, pad=0):
         for x in range(filter_w):
             x_max = x + stride*out_w
             col[:, :, y, x, :, :] = img[:, :, y:y_max:stride, x:x_max:stride]
-
+    # N*out_h*out_w 相当于输出特征图的每个位置都变成一行，
+    # C*filter_h*filter_w 是滤波器展开后包含的所有像素值（对于每个通道和滤波器内部的每个像素）。
     col = col.transpose(0, 4, 5, 1, 2, 3).reshape(N*out_h*out_w, -1)
     return col
 

@@ -15,6 +15,7 @@ def filter_show(filters, nx=8, margin=3, scale=10):
 
     for i in range(FN):
         ax = fig.add_subplot(ny, nx, i+1, xticks=[], yticks=[])
+        # 从四维过滤器数组中提取第 i 个过滤器的第一个通道
         ax.imshow(filters[i, 0], cmap=plt.cm.gray_r, interpolation='nearest')
     plt.show()
 

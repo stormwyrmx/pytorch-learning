@@ -24,6 +24,9 @@ class Trainer:
         # optimzer
         optimizer_class_dict = {'sgd':SGD, 'momentum':Momentum, 'nesterov':Nesterov,
                                 'adagrad':AdaGrad, 'rmsprpo':RMSprop, 'adam':Adam}
+        # 实际上是在创建一个该类的实例
+        # 例如：optimizer_class_dict['sgd']等价于SGD()
+        # **optimizer_param 表示使用关键字参数传递一个字典 optimizer_param 中的所有键值对到该类的构造函数中。
         self.optimizer = optimizer_class_dict[optimizer.lower()](**optimizer_param)
         
         self.train_size = x_train.shape[0]

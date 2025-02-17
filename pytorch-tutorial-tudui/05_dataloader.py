@@ -14,10 +14,11 @@ print(target)
 
 writer = SummaryWriter("logs")
 for epoch in range(2):
-    # 调用 __iter__() 方法：
-    # 返回一个迭代器对象（DataLoaderIter 或其自定义实现）。
-    # 这个迭代器会基于 dataset、batch_size 和 shuffle 等参数动态生成批次。
     for i,data in enumerate(test_loader):
+        # 调用 __iter__() 方法：
+        # 返回一个迭代器对象（DataLoaderIter 或其自定义实现）。
+        # 这个迭代器会基于 dataset、batch_size 和 shuffle 等参数动态生成批次。
+        # 底层调用dataset的__getitem__方法，返回一个元组，元组中包含了图片和标签
         imgs, targets = data  # 从data元组中取出数据
         print(imgs.shape)
         print(targets)

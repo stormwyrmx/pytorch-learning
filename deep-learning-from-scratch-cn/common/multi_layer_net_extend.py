@@ -103,6 +103,7 @@ class MultiLayerNetExtend:
         return self.last_layer.forward(y, t) + weight_decay
 
     def accuracy(self, X, T):
+        # 这里的train_flg是False，因为在预测时使用dropout是
         Y = self.predict(X, train_flg=False)
         Y = np.argmax(Y, axis=1)
         if T.ndim != 1 : T = np.argmax(T, axis=1)

@@ -66,9 +66,15 @@ class TwoLayerNet:
         # backward
         dout = 1  # 损失函数的导数是1（因为损失函数就是L最终结果了）
         dout = self.lastLayer.backward(dout)
-        
+
+        # list() 把原对象的引用收集到一个列表里。只是共享了相同的层对象引用，并没有共享“列表/字典结构”。
+        # list() 为外层列表新建了一个对象，但内部可变元素因为依旧指向同一个引用
+        # 也就是说，self.layers和layers是两个不同的对象，但是它们的元素是相同的对象引用
         layers = list(self.layers.values())
         layers.reverse()
+        # print(layers)
+        # print(self.layers)
+        # print(self.layers.values())
         for layer in layers:
             dout = layer.backward(dout)
 

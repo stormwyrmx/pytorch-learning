@@ -15,8 +15,8 @@ test_set = torchvision.datasets.CIFAR10(root="./dataset", train=False, transform
 img, target = test_set[0]
 print(img.shape)
 print(target)
-# print(test_set.classes[target])
-# img.show()
+print(test_set.classes[target])
+img.show()
 
 
 writer = SummaryWriter("logs")

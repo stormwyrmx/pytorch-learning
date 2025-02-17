@@ -57,6 +57,7 @@ class Affine:
     def forward(self, x):
         # 对应张量
         self.original_x_shape = x.shape
+        # 把x变成一维数组，应付之前有卷积层的情况
         x = x.reshape(x.shape[0], -1)
         self.x = x
 
@@ -116,6 +117,8 @@ class Dropout:
 
     def forward(self, x, train_flg=True):
         if train_flg:
+            # np.random.rand()->random uniform
+            # np.random.randn()->random normal
             self.mask = np.random.rand(*x.shape) > self.dropout_ratio
             return x * self.mask
         else:
@@ -123,7 +126,6 @@ class Dropout:
 
     def backward(self, dout):
         return dout * self.mask
-
 
 class BatchNormalization:
     """
@@ -211,6 +213,7 @@ class BatchNormalization:
 
 class Convolution:
     def __init__(self, W, b, stride=1, pad=0):
+        # 这里的W是滤波器
         self.W = W
         self.b = b
         self.stride = stride
@@ -225,6 +228,7 @@ class Convolution:
         self.dW = None
         self.db = None
 
+    # x是输入数据，W是滤波器
     def forward(self, x):
         FN, C, FH, FW = self.W.shape
         N, C, H, W = x.shape
@@ -234,6 +238,7 @@ class Convolution:
         col = im2col(x, FH, FW, self.stride, self.pad)
         col_W = self.W.reshape(FN, -1).T
 
+        # 矩阵相乘（卷积）
         out = np.dot(col, col_W) + self.b
         out = out.reshape(N, out_h, out_w, -1).transpose(0, 3, 1, 2)
 
@@ -272,6 +277,8 @@ class Pooling:
         out_h = int(1 + (H - self.pool_h) / self.stride)
         out_w = int(1 + (W - self.pool_w) / self.stride)
 
+        # 通过 im2col 将输入 x 中与池化窗口对应的区域展开
+        # im2col会把每个池化区域（pool_h x pool_w）拉伸成一行
         col = im2col(x, self.pool_h, self.pool_w, self.stride, self.pad)
         col = col.reshape(-1, self.pool_h*self.pool_w)
 
