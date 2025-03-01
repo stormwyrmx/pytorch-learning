@@ -16,8 +16,9 @@ img, target = test_set[0]
 print(img.shape)
 print(target)
 print(test_set.classes[target])
-img.show()
-
+# ToPILImage 是一个可调用的转换类，其构造函数（init）用于设置参数，而图像转换操作发生在它的 call 方法中
+# 这表示先实例化一个 ToPILImage 对象，然后用括号调用该对象，将 img 作为参数传入 call 方法进行转换，最后调用 show() 显示生成的 PIL 图像。
+torchvision.transforms.ToPILImage()(img).show()
 
 writer = SummaryWriter("logs")
 for i in range(10):

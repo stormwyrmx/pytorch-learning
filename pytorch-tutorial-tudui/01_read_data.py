@@ -69,11 +69,12 @@ if __name__ == '__main__':
     # writer.add_image('error', train_dataset[119]['img'])
     # writer.close()
     for i, data in enumerate(dataloader):
-        # 从data字典中取出数据，imgs是第一个item的key，labels是第二个item的key
+        # 调用的是MyData的__getitem__方法，这里返回了字典。所以imgs是第一个item的key，labels是第二个item的key
         imgs, labels = data
         print(type(data))
         # print(i, data['img'].shape)
         print(i,imgs,labels)
+        #  img_tensor (torch.Tensor, numpy.ndarray, or string/blobname): Image data
         writer.add_image("train_data_b2", data[imgs], i, dataformats='NCHW')
         # writer.add_image("train_data_b2", make_grid(data['img']), i)
 

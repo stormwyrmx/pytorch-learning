@@ -40,6 +40,7 @@ class Trainer:
         self.test_acc_list = []
 
     def train_step(self):
+        # 取数据
         batch_mask = np.random.choice(self.train_size, self.batch_size)
         x_batch = self.x_train[batch_mask]
         t_batch = self.t_train[batch_mask]

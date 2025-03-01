@@ -213,7 +213,7 @@ class BatchNormalization:
 
 class Convolution:
     def __init__(self, W, b, stride=1, pad=0):
-        # 这里的W是滤波器
+        # 这里的W是滤波器，反向传播后就是要不断更新W的值
         self.W = W
         self.b = b
         self.stride = stride
