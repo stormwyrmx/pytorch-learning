@@ -6,14 +6,14 @@ from torch import nn
 from torch.nn import Sequential, Conv2d, MaxPool2d, Flatten, Linear
 from torch.utils.data import DataLoader
 
-dataset = torchvision.datasets.CIFAR10("../dive-into-deep-learning/data", train=False, transform=torchvision.transforms.ToTensor(),
+dataset = torchvision.datasets.CIFAR10("dataset", train=False, transform=torchvision.transforms.ToTensor(),
                                        download=True)
 
 dataloader = DataLoader(dataset, batch_size=1)
 
-class Tudui(nn.Module):
+class WengNet(nn.Module):
     def __init__(self):
-        super(Tudui, self).__init__()
+        super().__init__()
         self.model1 = Sequential(
             Conv2d(3, 32, 5, padding=2),
             MaxPool2d(2),
@@ -32,9 +32,11 @@ class Tudui(nn.Module):
 
 
 loss = nn.CrossEntropyLoss()
-tudui = Tudui()
+wengNet = WengNet()
 for data in dataloader:
     imgs, targets = data
-    outputs = tudui(imgs)
+    # 值得注意的是，虽然outputs本身不是概率分布，但在使用nn.CrossEntropyLoss()时，损失函数内部会先对outputs应用log_softmax函数，
+    # 将其转换为概率分布（每个样本的10个类别概率总和为1），然后再计算交叉熵损失
+    outputs = wengNet(imgs)
     result_loss = loss(outputs, targets)
-    print("ok")
+    print(result_loss)

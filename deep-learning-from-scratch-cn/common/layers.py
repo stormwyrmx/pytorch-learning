@@ -83,6 +83,7 @@ class SoftmaxWithLoss:
         self.y = None # softmax的输出
         self.t = None # 监督数据
 
+    # 计算loss的forward的时候，输入有两个，分别是x和t（其它的forward的输入一般只有1个）
     def forward(self, x, t):
         self.t = t
         self.y = softmax(x)
@@ -101,6 +102,7 @@ class SoftmaxWithLoss:
         else:
             dx = self.y.copy()
             # 将y的t位置的值减1，相当于把t变成了one-hot-vector
+            # 这里也是y-t
             dx[np.arange(batch_size), self.t] -= 1
             dx = dx / batch_size
         

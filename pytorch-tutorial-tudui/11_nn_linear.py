@@ -28,6 +28,7 @@ wengNet = WengNet()
 for i,data in enumerate(dataloader):
     imgs, targets = data
     print(imgs.shape)
+    # 把一个张图片展平成一个一维的张量
     output = torch.flatten(imgs)
     print(output.shape)
     output = wengNet(output)
