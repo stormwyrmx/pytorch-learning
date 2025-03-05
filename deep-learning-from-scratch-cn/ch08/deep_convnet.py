@@ -98,7 +98,7 @@ class DeepConvNet:
         return acc / x.shape[0]
 
     def gradient(self, x, t):
-        # forward
+        # forward，loss中包含了forward（只有推理一遍才能求出loss）
         self.loss(x, t)
 
         # backward

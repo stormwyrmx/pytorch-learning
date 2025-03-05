@@ -1,6 +1,7 @@
 /pytorch-tutorial-tudui/data/
 /pytorch-tutorial-tudui/dataset/
 /pytorch-tutorial-tudui/logs/
+/pytorch-tutorial-tudui/saves/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

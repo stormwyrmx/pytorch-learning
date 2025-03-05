@@ -18,8 +18,10 @@ t_train = t_train[:500]
 validation_rate = 0.20
 validation_num = int(x_train.shape[0] * validation_rate)
 x_train, t_train = shuffle_dataset(x_train, t_train)
+# 从打乱后的数据中取前validation_num个样本作为验证集
 x_val = x_train[:validation_num]
 t_val = t_train[:validation_num]
+# 剩下的样本作为训练集
 x_train = x_train[validation_num:]
 t_train = t_train[validation_num:]
 
