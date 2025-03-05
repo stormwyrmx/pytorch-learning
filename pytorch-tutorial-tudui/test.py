@@ -25,16 +25,16 @@ image = transform(image)
 print(image.shape)
 
 # 加载模型
-wengNet = torch.load("./saves/wengNet_gpu.pth")
-wengNet.to(device)
-# wengNet = torch.load("./saves/wengNet_29_gpu.pth", map_location=torch.device('cpu'))
+wengNet = model.WengNet().to(device)
+wengNet.load_state_dict(torch.load('./saves/wengNet_gpu.pth',weights_only=True))
+# wengNet = torch.load("./saves/wengNet_gpu.pth")
 print(wengNet)
 
 # 模型预测
 image = torch.reshape(image, (1, 3, 32, 32))
-image = image.to(device)
 wengNet.eval()
 with torch.no_grad():
+    image = image.to(device)
     output = wengNet(image)
 
 print(output.argmax(1))
