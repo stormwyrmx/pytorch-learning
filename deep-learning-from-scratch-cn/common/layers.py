@@ -222,8 +222,10 @@ class Convolution:
         self.pad = pad
         
         # 中间数据（backward时使用）
-        self.x = None   
+        self.x = None
+        # 将输入数据展开为矩阵，用于高效计算卷积
         self.col = None
+        # 将卷积核重塑为矩阵，便于与展开后的输入进行矩阵乘法
         self.col_W = None
         
         # 权重和偏置参数的梯度

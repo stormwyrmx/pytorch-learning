@@ -8,7 +8,7 @@ from torch import nn
 from torch.utils.data import DataLoader
 
 """
-对网络模型、损失函数、数据调用cuda或者to(device)方法
+对网络模型、数据调用cuda或者to(device)方法
 """
 
 # 定义训练的设备
@@ -32,7 +32,8 @@ wengNet.load_state_dict(torch.load('./saves/wengNet_gpu.pth',weights_only=True))
 
 # 损失函数
 loss_function = nn.CrossEntropyLoss()
-loss_function.to(device)
+# 关键在于 模型参数weight type 和 输入张量Input type 必须在相同设备，而 loss 作为反向传播起点，对设备的要求会自动跟随前面的计算流程。
+# loss_function.to(device)
 
 # 优化器
 learning_rate = 1e-3

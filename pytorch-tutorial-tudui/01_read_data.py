@@ -8,6 +8,10 @@ from torchvision.utils import make_grid
 
 writer = SummaryWriter("logs")
 
+"""
+一般是Image.open()后，进行transform（一般会包含ToTensor）
+"""
+
 # Dataset：提供一种方式去获取数据及其label
 # 包含了：如何获取每一个数据及其label，告诉我们总共有多少的数据
 # DataLoader：为后面的网络提供不同的数据形式
@@ -38,7 +42,6 @@ class MyData(Dataset):
         img_item_path = os.path.join(self.root_dir, self.image_dir, img_name)
         label_item_path = os.path.join(self.root_dir, self.label_dir, label_name)
         img = Image.open(img_item_path)
-
         with open(label_item_path, 'r') as f:
             label = f.readline()
 

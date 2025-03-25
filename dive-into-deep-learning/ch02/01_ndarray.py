@@ -9,7 +9,6 @@ print(x.shape)  # 等价于print(x.size()) 一维，长度为22
 print(x.numel())  # number of elements
 print(x.view(2, 3, 4))  # view是reshape的别名，reshape成2*3*4的矩阵
 print(x.reshape(3, 2, 4))  # reshape成3个2*4的矩阵（2*4的矩阵是2个4个元素的向量）
-
 print(torch.zeros(2, 3, 4))
 print(torch.zeros((2, 3, 4)))
 print(torch.ones(2, 3, 4))

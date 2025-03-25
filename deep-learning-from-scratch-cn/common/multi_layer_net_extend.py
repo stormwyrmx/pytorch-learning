@@ -103,7 +103,7 @@ class MultiLayerNetExtend:
         return self.last_layer.forward(y, t) + weight_decay
 
     def accuracy(self, X, T):
-        # 这里的train_flg是False，因为在预测时使用dropout是
+        # 这里的train_flg是False，因为在预测时不使用dropout
         Y = self.predict(X, train_flg=False)
         Y = np.argmax(Y, axis=1)
         if T.ndim != 1 : T = np.argmax(T, axis=1)
@@ -139,10 +139,10 @@ class MultiLayerNetExtend:
         return grads
         
     def gradient(self, x, t):
-        # forward
+        # forward，这里的train_flg是True，因为在训练时使用dropout
         self.loss(x, t, train_flg=True)
 
-        # backward
+        # backward，每一层都计算出梯度，保存到grads中
         dout = 1
         dout = self.last_layer.backward(dout)
 
