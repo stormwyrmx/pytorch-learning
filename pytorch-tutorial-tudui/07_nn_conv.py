@@ -24,7 +24,6 @@ print(kernel.shape)
 
 # 用于构建卷积模型
 # nn.Conv2d(in_channels=1, out_channels=1, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
-
 # 直接执行卷积操作
 output = F.conv2d(input, kernel, stride=1)
 print(output)

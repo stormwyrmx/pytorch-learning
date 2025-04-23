@@ -6,13 +6,11 @@ import numpy as np
 from PIL import Image
 import cv2
 
-
 """
 pytorch的tensor中的图像的数据格式是CHW，像素值范围是[0, 1]
 opencv中的图像数据格式是HWC，像素值范围是[0, 255]
 PIL读取的图片的通道（C）顺序是RGB，而opencv读取的图片的通道（C）顺序是BGR
 """
-
 writer = SummaryWriter("logs")
 
 image_path1 = "data/train/ants_image/6240329_72c01e663e.jpg"

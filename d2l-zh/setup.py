@@ -18,7 +18,7 @@ setup(
     url='https://d2l.ai',
     description='Dive into Deep Learning',
     license='MIT-0',
-    packages=find_packages(),
+    packages=find_packages(), # 自动查找当前目录下所有子包
     zip_safe=True,
-    install_requires=requirements,
+    install_requires=requirements, # 指定了安装依赖的包和版本号
 )

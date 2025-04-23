@@ -4,8 +4,11 @@
 import torch
 import torchvision
 import model
+# from . import model
 from torch import nn
 from torch.utils.data import DataLoader
+# import sys
+# print(sys.path)
 
 """
 对网络模型、数据调用cuda或者to(device)方法
@@ -27,7 +30,7 @@ test_dataloader = DataLoader(test_data, batch_size=64)
 
 # 创建网络模型
 wengNet = model.WengNet().to(device)
-wengNet.load_state_dict(torch.load('./saves/wengNet_gpu.pth',weights_only=True))
+# wengNet.load_state_dict(torch.load('./saves/wengNet_gpu.pth',weights_only=True))
 # wengNet = torch.load('./saves/wengNet_gpu.pth').to(device)
 
 # 损失函数
@@ -43,6 +46,9 @@ optimizer = torch.optim.SGD(wengNet.parameters(), lr=learning_rate)
 def train(dataloader, wengNet, loss_function, optimizer):
     # 训练步骤开始，这些都是最基础的
     size=len(dataloader.dataset)
+    # 训练步骤开始
+    # This has any effect only on certain modules.
+    # e.g.ik:class:`Dropout`, :class:`BatchNorm`,
     wengNet.train()
     for batch, (imgs, targets) in enumerate(dataloader):
         imgs, targets = imgs.to(device), targets.to(device)

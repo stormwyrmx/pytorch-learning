@@ -4,6 +4,7 @@
 import torch
 import torchvision
 from torch import nn
+import os
 
 class WengNet(nn.Module):
     def __init__(self):
@@ -21,6 +22,10 @@ if __name__ == '__main__':
     # 字典的键(keys)是参数的名称（如"features.0.weight"）
     # 字典的值(values)是对应的参数张量(tensor)
     print(vgg16.state_dict())
+
+    # 如果没有./saves目录，创建一个
+    if not os.path.exists("./saves"):
+        os.makedirs("./saves")
 
     # 保存方式1,模型结构+模型参数
     torch.save(vgg16, "./saves/vgg16_method1.pth")

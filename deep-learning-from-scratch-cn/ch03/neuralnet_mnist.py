@@ -5,7 +5,6 @@ import numpy as np
 from common.functions import sigmoid, softmax
 from dataset.mnist import load_mnist
 
-
 # sys.path.append(os.pardir)  # 为了导入父目录的文件而进行的设定
 
 def get_data():

@@ -61,9 +61,8 @@ for i in range(epoch):
         loss.backward()
         optimizer.step()
         total_train_step += 1
-# todo 修改，使之变得更加规范（今晚看看pytorch官方怎么写的）
         # 通常来说，训练过程中每个mini - batch（迭代）都会计算loss，用于梯度反向传播和参数更新
-        # 这里因为是为了演示，所以每100次迭代打印一次loss
+        # 这里因为是为了演示，所以每100次迭代打印一次loss，pytorch官方也是每100次batch打印一次loss
         if total_train_step % 100 == 0:
             print(f"训练次数：{total_train_step}, Loss: {loss.item()}")
             writer.add_scalar("train_loss", loss, total_train_step)
@@ -81,6 +80,7 @@ for i in range(epoch):
             loss = loss_function(outputs, targets)
             # total_test_loss = total_test_loss + loss.item()
             # todo 因为这里每次只能求一个batch_size的正确率，所以要累加。能不能直接不需要data in dataloader。直接整个推理一遍
+            # 这里就是每一个batch_size都要求loss和accuracy，然后加起来平均
             accuracy = (outputs.argmax(1) == targets).sum()
             total_accuracy = total_accuracy + accuracy
 
