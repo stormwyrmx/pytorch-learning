@@ -25,8 +25,8 @@ test_data = torchvision.datasets.CIFAR10(root="dataset", train=False, transform=
                                          download=True)
 
 # 利用 DataLoader 来加载数据集
-train_dataloader = DataLoader(train_data, batch_size=64)
-test_dataloader = DataLoader(test_data, batch_size=64)
+train_dataloader = DataLoader(train_data, batch_size=64,shuffle=True)
+test_dataloader = DataLoader(test_data, batch_size=64,shuffle=True)
 
 # 创建网络模型
 wengNet = model.WengNet().to(device)
@@ -75,6 +75,7 @@ def test(dataloader, wengNet, loss_function):
     test_loss = 0
     correct = 0
     with torch.no_grad():
+        # 使用 DataLoader 进行批处理可以有效地处理大规模数据集，避免一次性将所有数据加载到内存中
         for imgs, targets in dataloader:
             imgs, targets = imgs.to(device), targets.to(device)
             outputs = wengNet(imgs)

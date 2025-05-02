@@ -9,7 +9,7 @@ print(type(test_set),type(test_set[0]))
 # 这里的shuffle改变的是每个epoch的数据顺序，而不是batch之间的数据顺序
 test_loader = DataLoader(dataset=test_set, batch_size=64, shuffle=True, num_workers=0, drop_last=True)
 print(type(test_loader),type(test_loader.dataset[0]))
-# 测试数据集中第一张图片及target
+# 测试数据集中第一张图片及target，test_set[0]返回的是一个元组，包含了图片和标签
 img, target = test_set[0]
 print(img.shape)
 print(target)
