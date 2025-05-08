@@ -20,6 +20,9 @@ writer = SummaryWriter("logs")
 # print(dir(Dataset))
 # print(help(Dataset))
 
+"""
+自己实现Dataset来读取数据，之后送进dataloader中
+"""
 class MyData(Dataset):
 
     def __init__(self, root_dir, image_dir, label_dir, transform):

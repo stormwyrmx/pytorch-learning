@@ -30,3 +30,11 @@ if __name__ == '__main__':
     input = torch.ones(64, 3, 32, 32)
     output = wengNet(input)
     print(output.shape)
+    """
+    nn.Sequential 是 PyTorch 提供的容器模块，它会自动创建一个带有 forward 方法的类，
+    该方法按照构造函数中指定的顺序依次执行所有子模块。
+    """
+    sequential = nn.Sequential(nn.Conv2d(3, 32, 5, 1, 2), nn.MaxPool2d(2), nn.Conv2d(32, 32, 5, 1, 2), nn.MaxPool2d(2),
+                               nn.Conv2d(32, 64, 5, 1, 2), nn.MaxPool2d(2), nn.Flatten(), nn.Linear(1024, 64),
+                               nn.Linear(64, 10))
+    print(sequential(input))
