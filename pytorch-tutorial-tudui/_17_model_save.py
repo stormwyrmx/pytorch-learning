@@ -31,6 +31,7 @@ if __name__ == '__main__':
     torch.save(vgg16, "./saves/vgg16_method1.pth")
 
     # 保存方式2，只保存模型参数（官方推荐，因为用的空间更小）
+    # state_dict()是字符串（层数名字）到parameter的映射
     torch.save(vgg16.state_dict(), "./saves/vgg16_method2.pth")
 
     # 陷阱1
