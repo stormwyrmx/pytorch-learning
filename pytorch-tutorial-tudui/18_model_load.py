@@ -15,6 +15,7 @@ print("model1=",model)
 model2 = torchvision.models.vgg16(weights=None)
 
 # 定义模型结构后，加载模型参数（状态字典）。定义模型后，再用文件里的东西overwrite掉我们自己的东西
+# Copy parameters and buffers from :attr:`state_dict` into this module and its descendants
 model2.load_state_dict(torch.load("./saves/vgg16_method2.pth",weights_only=True))
 print("model2=",model2)
 # model = torch.load("vgg16_method2.pth")
