@@ -1,10 +1,12 @@
 # coding: utf-8
 import sys, os
-sys.path.append(os.pardir) # 为了导入父目录的文件而进行的设定
+
+sys.path.append(os.pardir)  # 为了导入父目录的文件而进行的设定
 import numpy as np
 from collections import OrderedDict
 from common.layers import *
 from common.gradient import numerical_gradient
+
 
 class MultiLayerNetExtend:
     """扩展版的全连接的多层神经网络
@@ -25,9 +27,10 @@ class MultiLayerNetExtend:
     dropout_ration : Dropout的比例
     use_batchNorm: 是否使用Batch Normalization
     """
+
     def __init__(self, input_size, hidden_size_list, output_size,
-                 activation='relu', weight_init_std='relu', weight_decay_lambda=0, 
-                 use_dropout = False, dropout_ration = 0.5, use_batchnorm=False):
+                 activation='relu', weight_init_std='relu', weight_decay_lambda=0,
+                 use_dropout=False, dropout_ration=0.5, use_batchnorm=False):
         self.input_size = input_size
         self.output_size = output_size
         self.hidden_size_list = hidden_size_list
@@ -43,16 +46,17 @@ class MultiLayerNetExtend:
         # 生成层
         activation_layer = {'sigmoid': Sigmoid, 'relu': Relu}
         self.layers = OrderedDict()
-        for idx in range(1, self.hidden_layer_num+1):
+        for idx in range(1, self.hidden_layer_num + 1):
             self.layers['Affine' + str(idx)] = Affine(self.params['W' + str(idx)],
                                                       self.params['b' + str(idx)])
             if self.use_batchnorm:
-                self.params['gamma' + str(idx)] = np.ones(hidden_size_list[idx-1])
-                self.params['beta' + str(idx)] = np.zeros(hidden_size_list[idx-1])
-                self.layers['BatchNorm' + str(idx)] = BatchNormalization(self.params['gamma' + str(idx)], self.params['beta' + str(idx)])
-                
+                self.params['gamma' + str(idx)] = np.ones(hidden_size_list[idx - 1])
+                self.params['beta' + str(idx)] = np.zeros(hidden_size_list[idx - 1])
+                self.layers['BatchNorm' + str(idx)] = BatchNormalization(self.params['gamma' + str(idx)],
+                                                                         self.params['beta' + str(idx)])
+
             self.layers['Activation_function' + str(idx)] = activation_layer[activation]()
-            
+
             if self.use_dropout:
                 self.layers['Dropout' + str(idx)] = Dropout(dropout_ration)
 
@@ -77,7 +81,8 @@ class MultiLayerNetExtend:
                 scale = np.sqrt(2.0 / all_size_list[idx - 1])  # 使用ReLU的情况下推荐的初始值
             elif str(weight_init_std).lower() in ('sigmoid', 'xavier'):
                 scale = np.sqrt(1.0 / all_size_list[idx - 1])  # 使用sigmoid的情况下推荐的初始值
-            self.params['W' + str(idx)] = scale * np.random.randn(all_size_list[idx-1], all_size_list[idx])
+            self.params['W' + str(idx)] = scale * np.random.randn(all_size_list[idx - 1], all_size_list[idx])
+            # np.random.randn() 函数生成符合标准正态分布（均值为0，标准差为1）的随机数
             self.params['b' + str(idx)] = np.zeros(all_size_list[idx])
 
     def predict(self, x, train_flg=False):
@@ -98,7 +103,7 @@ class MultiLayerNetExtend:
         weight_decay = 0
         for idx in range(1, self.hidden_layer_num + 2):
             W = self.params['W' + str(idx)]
-            weight_decay += 0.5 * self.weight_decay_lambda * np.sum(W**2)
+            weight_decay += 0.5 * self.weight_decay_lambda * np.sum(W ** 2)
 
         return self.last_layer.forward(y, t) + weight_decay
 
@@ -106,7 +111,7 @@ class MultiLayerNetExtend:
         # 这里的train_flg是False，因为在预测时不使用dropout
         Y = self.predict(X, train_flg=False)
         Y = np.argmax(Y, axis=1)
-        if T.ndim != 1 : T = np.argmax(T, axis=1)
+        if T.ndim != 1: T = np.argmax(T, axis=1)
 
         accuracy = np.sum(Y == T) / float(X.shape[0])
         return accuracy
@@ -128,16 +133,16 @@ class MultiLayerNetExtend:
         loss_W = lambda W: self.loss(X, T, train_flg=True)
 
         grads = {}
-        for idx in range(1, self.hidden_layer_num+2):
+        for idx in range(1, self.hidden_layer_num + 2):
             grads['W' + str(idx)] = numerical_gradient(loss_W, self.params['W' + str(idx)])
             grads['b' + str(idx)] = numerical_gradient(loss_W, self.params['b' + str(idx)])
-            
-            if self.use_batchnorm and idx != self.hidden_layer_num+1:
+
+            if self.use_batchnorm and idx != self.hidden_layer_num + 1:
                 grads['gamma' + str(idx)] = numerical_gradient(loss_W, self.params['gamma' + str(idx)])
                 grads['beta' + str(idx)] = numerical_gradient(loss_W, self.params['beta' + str(idx)])
 
         return grads
-        
+
     def gradient(self, x, t):
         # forward，这里的train_flg是True，因为在训练时使用dropout
         self.loss(x, t, train_flg=True)
@@ -153,11 +158,12 @@ class MultiLayerNetExtend:
 
         # 设定
         grads = {}
-        for idx in range(1, self.hidden_layer_num+2):
-            grads['W' + str(idx)] = self.layers['Affine' + str(idx)].dW + self.weight_decay_lambda * self.params['W' + str(idx)]
+        for idx in range(1, self.hidden_layer_num + 2):
+            grads['W' + str(idx)] = self.layers['Affine' + str(idx)].dW + self.weight_decay_lambda * self.params[
+                'W' + str(idx)]
             grads['b' + str(idx)] = self.layers['Affine' + str(idx)].db
 
-            if self.use_batchnorm and idx != self.hidden_layer_num+1:
+            if self.use_batchnorm and idx != self.hidden_layer_num + 1:
                 grads['gamma' + str(idx)] = self.layers['BatchNorm' + str(idx)].dgamma
                 grads['beta' + str(idx)] = self.layers['BatchNorm' + str(idx)].dbeta
 
