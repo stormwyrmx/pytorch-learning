@@ -1,10 +1,8 @@
 import torch
-from numpy.ma.core import shape
 from torch.utils.tensorboard import SummaryWriter
 from torchvision import transforms
 import numpy as np
 from PIL import Image
-import cv2
 
 """
 pytorch的tensor中的图像的数据格式是CHW，像素值范围是[0, 1]
@@ -20,9 +18,9 @@ img_PIL = Image.open(image_path1)
 img_array = np.array(img_PIL)
 print(type(img_array))
 print(img_array.shape)
-img_cv2=cv2.cvtColor(cv2.imread(image_path2), cv2.COLOR_BGR2RGB)
-print(type(img_cv2))
-print(img_cv2.shape)
+# img_cv2=cv2.cvtColor(cv2.imread(image_path2), cv2.COLOR_BGR2RGB)
+# print(type(img_cv2))
+# print(img_cv2.shape)
 # print(shape(img_cv2))
 
 # ToTensor
@@ -31,8 +29,8 @@ print(img_cv2.shape)
 transform_totensor = transforms.ToTensor()
 tensor_image = transform_totensor(img_array)
 print(tensor_image.shape,tensor_image.mean(),tensor_image.std())
-tensor_cv2 = torch.tensor(img_cv2)
-print(tensor_cv2.shape)
+# tensor_cv2 = torch.tensor(img_cv2)
+# print(tensor_cv2.shape)
 
 # Normalize
 # 只能处理CHW格式的数据，所以需要先将数据转换为CHW格式。同时C一定是和mean中的元素个数相同
@@ -57,7 +55,7 @@ for i in range(10):
 
 # img_tensor (torch.Tensor, numpy.ndarray, or string/blobname): Image data
 writer.add_image("train", tensor_image, 1, dataformats='CHW')
-writer.add_image("train", tensor_cv2, 2, dataformats='HWC')
+# writer.add_image("train", tensor_cv2, 2, dataformats='HWC')
 writer.add_image("train", image_normalize, 3, dataformats='CHW')
 writer.add_image("train", transforms.ToTensor()(image_resize), 4, dataformats='CHW')
 writer.add_image("train", image_compose, 5, dataformats='CHW')
